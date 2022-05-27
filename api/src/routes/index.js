@@ -84,6 +84,22 @@ router.get('/temperament', async(req,res)=>{
 //     }
 // })
 
+router.post('/dog', async (req,res)=>{
+    const {name, height, weight, life_span, temperament, createdInDb} = req.body
+    let newDog = await Race.create({
+        name,
+        height,
+        weight,
+        life_span,
+        createdInDb
+    })
+    let temperamentNewDog = await Temperament.findAll({
+        where: {name: temperament}
+    })
+    newDog.addTemperament(temperamentNewDog) //crea al perro por body pero no me muestra el temperamento
+    res.send(newDog)
+})
+
 
 
 
