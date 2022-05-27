@@ -30,7 +30,7 @@ async function getDbBreeds(){
             }
         })
     } catch (error) {
-        
+        next()
     }
 }
 
@@ -51,6 +51,40 @@ router.get("/dogs", async(req,res)=>{
         res.status(200).send(totalBreeds);
     }
 })
+
+router.get('/temperament', async(req,res)=>{
+    const temperamentsApi = (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.map(e=> e.temperament).join(',')
+    let arrayTemp =temperamentsApi.split(',')
+       
+    arrayDef = arrayTemp.reduce((acc,item)=>{
+        if(!acc.includes(item) && item !=""){
+            acc.push(item);       
+        }
+        return acc;
+    },[])
+    
+    arrayDef.forEach(e=> {
+        Temperament.findOrCreate({
+            where: {name: e}
+        })
+    });
+    const allTemperaments = await Temperament.findAll();
+    res.send(allTemperaments.sort())
+
+})
+
+
+
+// router.get("/dogs/:id", async (req,res)=>{
+//     const {id} = req.params.id
+//     let totalBreeds = await getAllBreeds();
+//     if(id){
+//         let breedID= await totalBreeds.filter(e=> e.id === id);
+//         let breedDetail = 
+//     }
+// })
+
+
 
 
 module.exports = router;
