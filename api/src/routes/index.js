@@ -11,7 +11,7 @@ const router = Router();
 async function getApiBreeds(){
     try {
         let breeds= (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.
-        map(e=>({image:e.image.url, name:e.name, temperament:e.temperament,weigth:e.weight.metric}))
+        map(e=>({id: e.id, image:e.image.url, name:e.name, height: e.height.metric, temperament:e.temperament,weight:e.weight.metric, life_span : e.life_span}))
         return breeds
     } catch (error) {
         next()
@@ -43,7 +43,8 @@ async function getAllBreeds(){
 
 router.get("/dogs", async(req,res)=>{
     const name = req.query.name
-    let totalBreeds = await getAllBreeds();
+    let breeds = await getAllBreeds();
+    totalBreeds = breeds.map(e=> ({image: e.image, name: e.name, temperament: e.temperament, weight: e.weight}))
     if(name){
         let breedName = await totalBreeds.filter(e=> e.name.toLowerCase().includes(name.toLowerCase()));
         breedName.length ? res.status(200).send(breedName) : res.status(404).send("No existe una raza de perro con ese nombre");
@@ -75,14 +76,14 @@ router.get('/temperament', async(req,res)=>{
 
 
 
-// router.get("/dogs/:id", async (req,res)=>{
-//     const {id} = req.params.id
-//     let totalBreeds = await getAllBreeds();
-//     if(id){
-//         let breedID= await totalBreeds.filter(e=> e.id === id);
-//         let breedDetail = 
-//     }
-// })
+router.get("/dogs/:id", async (req,res)=>{
+    const id= req.params.id
+    let totalBreeds = await getAllBreeds();
+    if(id){
+        let breedID= await totalBreeds.filter(e=> e.id = id);
+        res.send(breedID)
+    }
+})
 
 router.post('/dog', async (req,res)=>{
     const {name, height, weight, life_span, temperament, createdInDb} = req.body
