@@ -41,10 +41,19 @@ async function getAllBreeds(){
     return allBreeds 
 }
 
+router.get("/dogs/:id", async (req,res)=>{
+    const id= req.params.id;
+    let totalBreeds = await getAllBreeds()
+    if(id){
+        let breedID= await totalBreeds.filter(e=> e.id == id);
+        res.send(breedID)
+    }
+})
+
 router.get("/dogs", async(req,res)=>{
     const name = req.query.name
     let breeds = await getAllBreeds();
-    totalBreeds = breeds.map(e=> ({image: e.image, name: e.name, temperament: e.temperament, weight: e.weight}))
+    totalBreeds = breeds.map(e=> ({id:e.id,image: e.image, name: e.name, temperament: e.temperament, weight: e.weight}))
     if(name){
         let breedName = await totalBreeds.filter(e=> e.name.toLowerCase().includes(name.toLowerCase()));
         breedName.length ? res.status(200).send(breedName) : res.status(404).send("No existe una raza de perro con ese nombre");
@@ -74,23 +83,13 @@ router.get('/temperament', async(req,res)=>{
 
 })
 
-
-
-router.get("/dogs/:id", async (req,res)=>{
-    const id= req.params.id
-    let totalBreeds = await getAllBreeds();
-    if(id){
-        let breedID= await totalBreeds.filter(e=> e.id = id);
-        res.send(breedID)
-    }
-})
-
 router.post('/dog', async (req,res)=>{
-    const {name, height, weight, life_span, temperament, createdInDb} = req.body
+    const {name, height, weight,temperament, life_span, createdInDb} = req.body
     let newDog = await Race.create({
         name,
         height,
         weight,
+        temperament,
         life_span,
         createdInDb
     })
