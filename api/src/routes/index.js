@@ -46,8 +46,9 @@ router.get("/dogs/:id", async (req,res)=>{
     let totalBreeds = await getAllBreeds()
     if(id){
         let breedID= await totalBreeds.filter(e=> e.id == id);
-        res.send(breedID)
+        breedID.length ? res.send(breedID) : res.send('El id no pertenece a un perro')
     }
+   
 })
 
 router.get("/dogs", async(req,res)=>{
