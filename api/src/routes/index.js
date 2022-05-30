@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const axios= require('axios')
-const {Race, Temperament} = require('../db')
+const {Dog, Temperament} = require('../db')
+
 const router = Router();
 
 // Configurar los routers
@@ -11,16 +12,16 @@ const router = Router();
 async function getApiBreeds(){
     try {
         let breeds= (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.
-        map(e=>({id: e.id, image:e.image.url, name:e.name, height: e.height.metric, temperament:e.temperament,weight:e.weight.metric, life_span : e.life_span}))
+        map(e=>({id: e.id, image:e.image.url, name:e.name, height: e.height.metric, temperament:e.temperament, weight:e.weight.metric, life_span : e.life_span}))
         return breeds
     } catch (error) {
-        next()
+        res.status(404).send(error)
     }
 }
 
 async function getDbBreeds(){
     try {
-        return await Race.findAll({
+        return await Dog.findAll({
             include:{
                 model: Temperament,
                 attributes: ['name'],
@@ -30,19 +31,21 @@ async function getDbBreeds(){
             }
         })
     } catch (error) {
-        next()
+       res.send(error)
     }
 }
 
 async function getAllBreeds(){
     const apiBreeds= await getApiBreeds()
     const dbBreeds= await getDbBreeds()
-    const allBreeds= apiBreeds.concat(dbBreeds);
+    const allBreeds= apiBreeds.concat(dbBreeds)
+    
+    
     return allBreeds 
 }
 
-router.get("/dogs/:id", async (req,res)=>{
-    const id= req.params.id;
+router.get("/dogs/:idRaza", async (req,res)=>{
+    const id= req.params.idRaza;
     let totalBreeds = await getAllBreeds()
     if(id){
         let breedID= await totalBreeds.filter(e=> e.id == id);
@@ -64,41 +67,50 @@ router.get("/dogs", async(req,res)=>{
 })
 
 router.get('/temperament', async(req,res)=>{
-    const temperamentsApi = (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.map(e=> e.temperament).join(',')
-    let arrayTemp =temperamentsApi.split(',')
-       
+    const temperamentsApi = (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.map(e=> e.temperament).join(", ")
+    let arrayTemp =temperamentsApi.split(', ')
+    
+  
     arrayDef = arrayTemp.reduce((acc,item)=>{
         if(!acc.includes(item) && item !=""){
             acc.push(item);       
         }
         return acc;
     },[])
-    
+      
     arrayDef.forEach(e=> {
         Temperament.findOrCreate({
             where: {name: e}
         })
     });
+   
     const allTemperaments = await Temperament.findAll();
-    res.send(allTemperaments.sort())
+    res.send(allTemperaments)
 
 })
 
 router.post('/dog', async (req,res)=>{
-    const {name, height, weight,temperament, life_span, createdInDb} = req.body
-    let newDog = await Race.create({
-        name,
-        height,
-        weight,
-        temperament,
-        life_span,
-        createdInDb
-    })
-    let temperamentNewDog = await Temperament.findAll({
-        where: {name: temperament}
-    })
-    newDog.addTemperament(temperamentNewDog) //crea al perro por body pero no me muestra el temperamento
-    res.send(newDog)
+    const {name, height, image,weight,temperament, life_span} = req.body
+    try {
+        let newDog = await Dog.create({
+            name,
+            height,
+            weight,
+            life_span,
+            image
+        })
+        
+        let temperamentNewDog = await Temperament.findAll({
+             where: {name: temperament}
+        })
+        console.log(temperamentNewDog)
+        newDog.addTemperament(temperamentNewDog)
+        res.send(newDog)
+        
+    } catch (error) {
+        res.status(400).send(error)
+    }
+    
 })
 
 
