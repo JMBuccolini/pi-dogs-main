@@ -4,12 +4,25 @@ import {useDispatch, useSelector} from 'react-redux';
 import { getDogs } from '../actions';
 import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
+import Paginado from './Paginado';
 
 
 export default function Home(){
 
 const dispatch = useDispatch()
 const allDogs = useSelector((state)=>state.dogs) //con esto reemplazamos el mapstatetoprops, trae todo lo que esté en el estado de dogs
+const [currentPage, setCurrentPage] = useState(1) //guardamos en un estado la pagina actual
+const [dogsPage, setdogsPage] = useState(8) //guardamos los personajes por pagina
+const indexLastDog = currentPage * dogsPage //esta constante inicia en 8
+const indexFirstDog = indexLastDog - dogsPage //el 1er perro está la pos final menos la cantidad de perros
+const currentDogs= allDogs.slice(indexFirstDog,indexLastDog) // me devuelve los 8 perros ya que el slice no toma el ultimo
+
+const pages= (pageNumber) =>{
+    setCurrentPage(pageNumber)
+}
+
+
+
 
 useEffect(()=>{ 
     dispatch(getDogs());    
@@ -41,7 +54,12 @@ return(
             <option value='api'>Raza existente</option>
             <option value='created'>Raza creada por usuario</option>
         </select>
-     {allDogs ?.map((e) =>{
+        <Paginado
+        dogsPage={dogsPage}
+        allDogs={allDogs.length}
+        pages={pages}
+        />
+     {currentDogs ?.map((e) =>{
          return(
 
              <DogCard name={e.name} image = {e.image} weight={e.weight} height={e.height} life_span={e.life_span} />   

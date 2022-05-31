@@ -1,0 +1,27 @@
+.paginado{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.pagelist{
+    display: inline;
+}
+
+.pagenumber{
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagenumber.active{
+    background-color: #4CAF50;
+    color:white;
+    border-radius: 5px;
+}
+
+.pagenumber:hover:not(.active){
+    background-color: #ddd;
+}
