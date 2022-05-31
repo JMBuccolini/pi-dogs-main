@@ -1,0 +1,7 @@
+.landing {
+  background: url('dogs.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;}
