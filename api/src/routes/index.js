@@ -21,15 +21,18 @@ async function getApiBreeds(){
 
 async function getDbBreeds(){
     try {
-        return await Dog.findAll({
-            include:{
+        let dataBaseDogs = await Dog.findAll({
+            include:[{
                 model: Temperament,
-                attributes: ['name'],
+                attributes: ["name"],
                 through:{
                     attributes: []
                 }
-            }
+            }]
         })
+
+        let allDogs = dataBaseDogs.map(e=>({id: e.id, image: e.image, name:e.name, height: e.height, temperament:e.temperaments[0].name, weight:e.weight, life_span : e.life_span}))
+        return allDogs
     } catch (error) {
        res.send(error)
     }
@@ -38,9 +41,7 @@ async function getDbBreeds(){
 async function getAllBreeds(){
     const apiBreeds= await getApiBreeds()
     const dbBreeds= await getDbBreeds()
-    const allBreeds= apiBreeds.concat(dbBreeds)
-    
-    
+    const allBreeds= apiBreeds.concat(dbBreeds)  
     return allBreeds 
 }
 
@@ -68,15 +69,15 @@ router.get("/dogs", async(req,res)=>{
 
 router.get('/temperament', async(req,res)=>{
     const temperamentsApi = (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.map(e=> e.temperament).join(", ")
-    let arrayTemp =temperamentsApi.split(', ')
-    
-  
+    let arrayTemp =temperamentsApi.split(', ').sort()
+     
     arrayDef = arrayTemp.reduce((acc,item)=>{
         if(!acc.includes(item) && item !=""){
             acc.push(item);       
         }
         return acc;
     },[])
+    console.log(arrayDef)
       
     arrayDef.forEach(e=> {
         Temperament.findOrCreate({
@@ -85,6 +86,7 @@ router.get('/temperament', async(req,res)=>{
     });
    
     const allTemperaments = await Temperament.findAll();
+    
     res.send(allTemperaments)
 
 })
@@ -101,11 +103,13 @@ router.post('/dog', async (req,res)=>{
         })
         
         let temperamentNewDog = await Temperament.findAll({
-             where: {name: temperament}
+             where: {name: temperament},
+             
         })
-        console.log(temperamentNewDog)
+        
         newDog.addTemperament(temperamentNewDog)
-        res.send(newDog)
+        
+        res.send('Nuevo perro creado exitosamente')
         
     } catch (error) {
         res.status(400).send(error)
