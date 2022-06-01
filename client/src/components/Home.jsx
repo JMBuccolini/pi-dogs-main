@@ -37,6 +37,7 @@ function handleClick(e){
 function handlefilterDogByOrigin(e){
     e.preventDefault();
     dispatch(filterDogByOrigin(e.target.value))
+    setCurrentPage(1);
     
 }
 

@@ -19,7 +19,7 @@ function rootReducer(state = initialState, action){
             }
             case 'FILTER_BY_ORIGIN':
             const allDogs = state.allDogs;
-            const originFiltered = action.payload === "DB"? allDogs.filter(d=>d.createdInDB) : allDogs.filter(d=>!d.createdInDB)
+            const originFiltered = action.payload === "DB"? allDogs.filter(d=>d.id.length>5) : allDogs.filter(d=>!d.id.length)
             return{
                 ...state,
                 dogs: action.payload === "All"? state.allDogs : originFiltered
@@ -30,13 +30,13 @@ function rootReducer(state = initialState, action){
                         if(a.name > b.name){
                             return 1;
                         }
-                        if(b.name>a.name){
+                        if(b.name > a.name){
                             return -1;
                         }
                         return 0;
                     }):
                     state.dogs.sort(function (a,b){
-                        if(a.name>b.name){
+                        if(a.name > b.name){
                             return -1;
                         }
                         if(b.name>a.name){
