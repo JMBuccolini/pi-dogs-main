@@ -1,5 +1,5 @@
 import React from 'react';
-import '../paginado.css'
+import '../styles/paginado.css'
 
 export default function Paginado({dogsPage, allDogs, pages}){ //acá estamos creando la lista de numeros de paginas
     const pageNumbers = []

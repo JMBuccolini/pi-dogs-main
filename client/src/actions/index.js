@@ -9,3 +9,17 @@ export function getDogs(){
         })
     }
 }
+
+export function filterDogByOrigin(payload){
+    return ({
+        type: "FILTER_BY_ORIGIN",
+        payload
+    })
+}
+
+export function orderByName(payload){
+    return({
+        type: "ORDER_BY_NAME",
+        payload
+    })
+}

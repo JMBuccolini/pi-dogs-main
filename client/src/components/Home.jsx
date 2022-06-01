@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { getDogs } from '../actions';
+import { filterDogByOrigin, getDogs, orderByName } from '../actions';
 import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
 import Paginado from './Paginado';
@@ -10,6 +10,7 @@ import Paginado from './Paginado';
 export default function Home(){
 
 const dispatch = useDispatch()
+const [orden, setOrden] = useState('')
 const allDogs = useSelector((state)=>state.dogs) //con esto reemplazamos el mapstatetoprops, trae todo lo que esté en el estado de dogs
 const [currentPage, setCurrentPage] = useState(1) //guardamos en un estado la pagina actual
 const [dogsPage, setdogsPage] = useState(8) //guardamos los personajes por pagina
@@ -33,26 +34,39 @@ function handleClick(e){
     dispatch(getDogs());
 }
 
+function handlefilterDogByOrigin(e){
+    e.preventDefault();
+    dispatch(filterDogByOrigin(e.target.value))
+    
+}
+
+function handlefilterDogByName(e){
+    e.preventDefault();
+    dispatch(orderByName(e.target.value))
+    setCurrentPage(1)
+    setOrden(`Òrdenado ${e.target.value}`)
+}
+
 return(
     <div>
         <Link to= '/dog'> Crea tu Perro</Link>
-        <h1> HENRY Dogs</h1>
+        <h1> Los mejores amigos del hombre</h1>
         <button onClick={e => {handleClick(e)}}>
             Dogs
         </button>
     <div>
-        <select>
-            <option value= 'asc'> Ascendente</option>
-            <option value='desc'> Descendente</option>
+        <select  onChange={(e) => handlefilterDogByName(e)}>
+            <option value= 'asc'> Ordenar de la A-Z</option>
+            <option value='desc'> Ordenar de la Z-A</option>
         </select>
         <select>
             <option value= 'pesomax'> Peso Max - Min</option>
             <option value='pesomin'> Peso Min - Max</option>
         </select>
-        <select>
-            <option value='api'>Todos los Perros</option>
-            <option value='api'>Raza existente</option>
-            <option value='created'>Raza creada por usuario</option>
+        <select onChange={(e) => handlefilterDogByOrigin(e)}>
+            <option value='All'>Todos</option>
+            <option value='API'>Razas de la API</option>
+            <option value='DB'>Razas creada por usuario</option>
         </select>
         <Paginado
         dogsPage={dogsPage}

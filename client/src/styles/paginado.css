@@ -14,14 +14,16 @@
     padding: 8px 16px;
     border-radius: 5px;
     text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 4px 4px;
 }
 
-.pagenumber.active{
-    background-color: #4CAF50;
-    color:white;
-    border-radius: 5px;
-}
-
-.pagenumber:hover:not(.active){
+.pagenumber:hover{
     background-color: #ddd;
 }
+
+.pagenumber:active{
+    background-color: green;
+}
+

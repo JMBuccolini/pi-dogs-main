@@ -1,5 +1,5 @@
 .landing {
-  background: url('dogs.jpg');
+  background: url('../dogs.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;

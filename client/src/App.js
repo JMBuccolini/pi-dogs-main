@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import LandingPage from './components/LandingPage'
 import Home from './components/Home';
