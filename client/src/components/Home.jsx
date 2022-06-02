@@ -1,10 +1,11 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { filterDogByOrigin, getDogs, orderByName } from '../actions';
+import { filterDogByOrigin, filterDogByWeight, getDogs, orderByName } from '../actions';
 import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
 import Paginado from './Paginado';
+import SearchBar from './SearchBar';
 
 
 export default function Home(){
@@ -48,10 +49,18 @@ function handlefilterDogByName(e){
     setOrden(`Òrdenado ${e.target.value}`)
 }
 
+function handlefilterDogByWeight(e){
+    e.preventDefault();
+    dispatch(filterDogByWeight(e.target.value))
+    setCurrentPage(1);
+}
+
+
 return(
     <div>
         <Link to= '/dog'> Crea tu Perro</Link>
         <h1> Los mejores amigos del hombre</h1>
+        <SearchBar/>
         <button onClick={e => {handleClick(e)}}>
             Dogs
         </button>
@@ -60,7 +69,7 @@ return(
             <option value= 'asc'> Ordenar de la A-Z</option>
             <option value='desc'> Ordenar de la Z-A</option>
         </select>
-        <select>
+        <select onChange={(e) => handlefilterDogByWeight(e)}>
             <option value= 'pesomax'> Peso Max - Min</option>
             <option value='pesomin'> Peso Min - Max</option>
         </select>

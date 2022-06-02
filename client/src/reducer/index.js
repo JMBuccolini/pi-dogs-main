@@ -1,7 +1,8 @@
 
 const initialState = {
     dogs : [],
-    allDogs: []
+    allDogs: [],
+    temperaments : []
     
 
 }
@@ -23,6 +24,11 @@ function rootReducer(state = initialState, action){
             return{
                 ...state,
                 dogs: action.payload === "All"? state.allDogs : originFiltered
+                }
+            case 'GET_DOGS_NAME':
+                return{
+                    ...state,
+                    dogs: action.payload
                 } 
             case 'ORDER_BY_NAME':
                 const dogsName = action.payload === 'asc'?
@@ -46,7 +52,40 @@ function rootReducer(state = initialState, action){
                     return{
                         ...state,
                         dogs: dogsName
-                    }   
+                    }
+            case 'FILTER_BY_WEIGHT':
+                const dogsWeight = action.payload === 'pesomax'?
+                    state.dogs.sort(function(a,b){
+                        if(a.wight > b.weight){
+                            return 1;
+                        }
+                        if(b.weight > a.weight){
+                            return -1;
+                        }
+                        return 0;
+                    }):
+                    state.dogs.sort(function (a,b){
+                        if(a.weight > b.weight){
+                            return -1;
+                        }
+                        if(b.weight>a.weight){
+                            return 1;
+                        }
+                    })
+                    return{
+                        ...state,
+                        dogs:dogsWeight
+                    } 
+                case 'POST_DOG':
+                    return{
+                        ...state
+                    }
+                case 'GET_TEMPERAMENTS':
+                    return{
+                        ...state,
+                        temperaments: action.payload
+                    }
+
 
             default:
                 return state;
