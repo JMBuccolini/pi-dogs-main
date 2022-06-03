@@ -1,14 +1,14 @@
 import React from "react";
 
-export default function DogCard({name, image, weight, height, life_span}){
+export default function DogCard({name, image, weight, temperament}){
     return (
 
         <div>
-            <h2>{name}</h2>
             <img src={image} alt='imagen no encontrada' width='400px' height='250px' />
-            <h3>{weight}</h3>
-            <h3>{height}</h3>
-            <h3>{life_span}</h3>
+            <h2>Nombre: {name}</h2>
+            <h3>Temperamento: {temperament}</h3>
+            <h3>Peso: {weight}</h3>
+            
         </div>
 
     );
