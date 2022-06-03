@@ -86,7 +86,7 @@ return(
      {currentDogs ?.map((e) =>{
          return(
 
-             <DogCard name={e.name} image = {e.image} weight={e.weight} height={e.height} life_span={e.life_span} />   
+             <DogCard name={e.name} image = {e.image} temperament = {e.temperament}weight={e.weight} />   
 
          )})
     }
