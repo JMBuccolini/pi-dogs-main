@@ -7,7 +7,13 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-
+function filterTemperament(temperament) {
+    let string = "";
+    for (var i = 0; i < temperament.length; i++) {
+      string = string + temperament[i].name + ", ";
+    }
+    return string.slice(0, string.length - 2);
+  }
 
 async function getApiBreeds(){
     try {
@@ -31,7 +37,7 @@ async function getDbBreeds(){
             }]
         })
 
-        let allDogs = dataBaseDogs.map(e=>({id: e.id, image: e.image, name:e.name, height: e.height, temperament:e.temperaments[0].name, weight:e.weight, life_span : e.life_span}))
+        let allDogs = dataBaseDogs.map(e=>({id: e.id, image: e.image, name:e.name, height: e.height, temperament:filterTemperament(e.temperaments), weight:e.weight, life_span : e.life_span}))
         return allDogs
     } catch (error) {
        res.send(error)
