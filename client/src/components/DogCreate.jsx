@@ -9,9 +9,17 @@ export default function DogCreate(){
     const temperaments = useSelector((state) => state.temperaments)
     const navigate = useNavigate()
 
+    const [minmax, setMinmax] = useState({
+        height_min:"",
+        height_max:"",
+        weight_min:"",
+        weight_max:""
+    })
+
     const [input, setInput] = useState({
         name: "",
         height: "",
+        weight: "",
         weight: "",
         life_span: "",
         temperament: [],
@@ -20,6 +28,10 @@ export default function DogCreate(){
 
 function handleChange(e){
     e.preventDefault()
+    setMinmax({
+        ...minmax,
+        [e.target.name] : e.target.value
+    })
     setInput({
         ...input,
         [e.target.name] : e.target.value
@@ -31,23 +43,32 @@ function handleSelect(e){
     e.preventDefault()
     setInput({
         ...input,
+        height: minmax.height_min + '-' + minmax.height_max,
+        weight: minmax.weight_min + '-' + minmax.weight_max,
         temperament: [...input.temperament, e.target.value]
     })
 }
 
 function handleSubmit(e){
     e.preventDefault()
-    dispatch(postDog(input))
-    alert("Perrito creado")
+    dispatch(postDog(input));
+    setMinmax({
+        height_min:"",
+        height_max:"",
+        weight_min:"",
+        weight_max:""
+    })
     setInput({
         name: "",
+        height:"",
         height: "",
         weight: "",
         life_span: "",
         temperament: [],
         image:""
-       
+        
     })
+    alert("Perrito creado")
     navigate("/home")
 }
 
@@ -73,12 +94,20 @@ return(
                 <input type='text' value={input.name} name='name' onChange={(e) =>handleChange(e)}/>
             </div>
             <div>
-                <label>Altura:</label>
-                <input type= 'text' value={input.height} name='height' onChange={(e) =>handleChange(e)}/>
+                <label>Altura minima:</label>
+                <input type= 'text' value={minmax.height_min} name='height_min' onChange={(e) =>handleChange(e)}/>
             </div>
             <div>
-                <label>Peso:</label>
-                <input type='text' value={input.weight} name='weight' onChange={(e) =>handleChange(e)}/>
+                <label>Altura maxima:</label>
+                <input type= 'text' value={minmax.height_max} name='height_max' onChange={(e) =>handleChange(e)}/>
+            </div>
+            <div>
+                <label>Peso minimo:</label>
+                <input type='text' value={minmax.weight_min} name='weight_min' onChange={(e) =>handleChange(e)}/>
+            </div>
+            <div>
+                <label>Peso maximo:</label>
+                <input type='text' value={minmax.weight_max} name='weight_max' onChange={(e) =>handleChange(e)}/>
             </div>
             <div>
                 <label>Promedio de vida</label>
