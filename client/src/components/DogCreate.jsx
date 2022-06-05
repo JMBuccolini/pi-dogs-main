@@ -51,6 +51,12 @@ function handleSubmit(e){
     navigate("/home")
 }
 
+function handleDelete(e){
+    setInput({
+        ...input,
+        temperament: input.temperament.filter(t=> t !== e)
+    })
+}
 
 useEffect(()=>{
     dispatch(getDogTemperaments())
@@ -82,7 +88,7 @@ return(
                 <label>Imagen</label>
                 <input type='text' value={input.image} name='image' onChange={(e) =>handleChange(e)}/>
             </div>
-            <label>Temperamentos: </label>
+            <label>Temperamentos (podés elegir más de uno): </label>
             <select onChange={(e)=>handleSelect(e)}>
                 {temperaments.map((temp) =>(  
                     <option value={temp.name}>{temp.name}</option>
@@ -95,6 +101,13 @@ return(
             </div>
 
         </form>
+        {
+            input.temperament.map(e=>
+                <div>
+                <p>{e}</p>
+                <button onClick={()=>handleDelete(e)}>x</button>
+                </div>
+        )}
 
 
     </div>
