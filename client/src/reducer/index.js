@@ -25,6 +25,14 @@ function rootReducer(state = initialState, action){
                 ...state,
                 dogs: action.payload === "All"? state.allDogs : originFiltered
                 }
+            case 'FILTER_BY_TEMPERAMENT':
+            let allDogs2 = state.allDogs;
+            allDogs2 = allDogs2.filter(e=>e.temperament!==undefined)
+            const tempFiltered = allDogs2.filter(e => e.temperament.includes(action.payload))
+            return{
+                ...state,
+                dogs: tempFiltered
+            }
             case 'GET_DOGS_NAME':
                 return{
                     ...state,
@@ -56,7 +64,7 @@ function rootReducer(state = initialState, action){
             case 'FILTER_BY_WEIGHT':
                 const dogsWeight = action.payload === 'pesomax'?
                     state.dogs.sort(function(a,b){
-                        if(a.wight > b.weight){
+                        if(a.weight > b.weight){
                             return 1;
                         }
                         if(b.weight > a.weight){

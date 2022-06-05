@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { filterDogByOrigin, filterDogByWeight, getDogs, orderByName } from '../actions';
+import { filterDogByOrigin, filterDogByWeight, getDogs, orderByName, getDogTemperaments,filterDogByTemperament } from '../actions';
 import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
 import Paginado from './Paginado';
@@ -13,6 +13,8 @@ export default function Home(){
 const dispatch = useDispatch()
 const [orden, setOrden] = useState('')
 const allDogs = useSelector((state)=>state.dogs) //con esto reemplazamos el mapstatetoprops, trae todo lo que esté en el estado de dogs
+const temperaments = useSelector((state) => state.temperaments)
+//Paginado:
 const [currentPage, setCurrentPage] = useState(1) //guardamos en un estado la pagina actual
 const [dogsPage, setdogsPage] = useState(8) //guardamos los personajes por pagina
 const indexLastDog = currentPage * dogsPage //esta constante inicia en 8
@@ -22,13 +24,13 @@ const currentDogs= allDogs.slice(indexFirstDog,indexLastDog) // me devuelve los 
 const pages= (pageNumber) =>{
     setCurrentPage(pageNumber)
 }
+//Fin paginado
 
+useEffect(()=>{
+    dispatch(getDogs())
+    dispatch(getDogTemperaments())
+},[]);
 
-
-
-useEffect(()=>{ 
-    dispatch(getDogs());    
-}, [])
 
 function handleClick(e){
     e.preventDefault();
@@ -55,6 +57,11 @@ function handlefilterDogByWeight(e){
     setCurrentPage(1);
 }
 
+function handlefilterDogByTemperament(e){
+    e.preventDefault()
+    dispatch(filterDogByTemperament(e.target.value))
+}
+
 
 return(
     <div>
@@ -65,14 +72,23 @@ return(
             Dogs
         </button>
     <div>
+        <p>Filtrar por Nombre</p>
         <select  onChange={(e) => handlefilterDogByName(e)}>
             <option value= 'asc'> Ordenar de la A-Z</option>
             <option value='desc'> Ordenar de la Z-A</option>
         </select>
+        <p>Filtrar por peso</p>
         <select onChange={(e) => handlefilterDogByWeight(e)}>
             <option value= 'pesomax'> Peso Max - Min</option>
             <option value='pesomin'> Peso Min - Max</option>
         </select>
+        <p>Filtrar por Temperamento</p>
+        <select onChange={(e) => handlefilterDogByTemperament(e)}>
+                {temperaments.map((temp) =>(  
+                    <option value={temp.name}>{temp.name}</option>
+                ))}
+        </select>
+        <p>Filtrar por Origen</p>
         <select onChange={(e) => handlefilterDogByOrigin(e)}>
             <option value='All'>Todos</option>
             <option value='API'>Razas de la API</option>

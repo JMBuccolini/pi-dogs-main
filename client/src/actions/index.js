@@ -63,3 +63,10 @@ export function filterDogByWeight(payload){
         payload
     })
 }
+
+export function filterDogByTemperament(payload){
+    return({
+        type: 'FILTER_BY_TEMPERAMENT',
+        payload
+    })
+}
