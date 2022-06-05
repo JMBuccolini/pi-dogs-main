@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import '../styles/card.css'
 
-export default function DogCard({name, image, weight, temperament}){
+export default function DogCard({name, id , image, weight, temperament}){
     return (
 
         <div className="card">
@@ -9,7 +10,7 @@ export default function DogCard({name, image, weight, temperament}){
             <h2>Nombre: {name}</h2>
             <h3>Temperamento: {temperament}</h3>
             <h3>Peso: {weight}</h3>
-            
+            <Link to={'/detail/' + id}><button>Detail</button></Link> 
         </div>
 
     );

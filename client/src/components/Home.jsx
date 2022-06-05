@@ -102,9 +102,12 @@ return(
         />
      {currentDogs ?.map((e) =>{
          return(
+            
+                
+                <DogCard name={e.name} id ={e.id} image = {e.image} temperament = {e.temperament}weight={e.weight}  key={e.id}/>  
 
-             <DogCard name={e.name} image = {e.image} temperament = {e.temperament}weight={e.weight} />   
-
+            
+            
          )})
     }
     </div>

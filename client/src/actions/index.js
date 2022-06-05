@@ -36,6 +36,20 @@ export function getDogTemperaments(){
   } 
 }
 
+export function getDetail(id){
+    return async function(dispatch){
+        try {
+            var dogDetail = await axios.get("http://localhost:3001/dogs/" + id);
+            return dispatch({
+                type: 'GET_DETAIL',
+                payload: dogDetail.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export function postDog(payload){
     return async function(dispatch){
         var dogPost = await axios.post("http://localhost:3001/dog", payload)
