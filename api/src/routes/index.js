@@ -98,7 +98,7 @@ router.get('/temperament', async(req,res)=>{
 })
 
 router.post('/dog', async (req,res)=>{
-    const {name, height, image,weight,temperament, life_span} = req.body
+    const {name, image, height, weight, temperament, life_span} = req.body
     try {
         let newDog = await Dog.create({
             name,
