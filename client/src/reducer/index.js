@@ -21,7 +21,7 @@ function rootReducer(state = initialState, action){
             }
             case 'FILTER_BY_ORIGIN':
             const allDogs = state.allDogs;
-            const originFiltered = action.payload === "DB"? allDogs.filter(d=>d.id.length>5) : allDogs.filter(d=>!d.id.length)
+            const originFiltered = action.payload === "DB"? allDogs.filter(d=>d.createdInDB) : allDogs.filter(d=>!d.createdInDB)
             return{
                 ...state,
                 dogs: action.payload === "All"? state.allDogs : originFiltered

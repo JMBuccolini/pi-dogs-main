@@ -37,7 +37,7 @@ async function getDbBreeds(){
             }]
         })
 
-        let allDogs = dataBaseDogs.map(e=>({id: e.id, image: e.image, name:e.name, height: e.height, temperament:filterTemperament(e.temperaments), weight:e.weight, life_span : e.life_span}))
+        let allDogs = dataBaseDogs.map(e=>({id: e.id, image: e.image, name:e.name, height: e.height, temperament:filterTemperament(e.temperaments), weight:e.weight, life_span : e.life_span, createdInDB: e.createdInDB}))
         return allDogs
     } catch (error) {
        res.send(error)
@@ -64,7 +64,7 @@ router.get("/dogs/:idRaza", async (req,res)=>{
 router.get("/dogs", async(req,res)=>{
     const name = req.query.name
     let breeds = await getAllBreeds();
-    totalBreeds = breeds.map(e=> ({id:e.id,image: e.image, name: e.name, temperament: e.temperament, weight: e.weight}))
+    totalBreeds = breeds.map(e=> ({id:e.id,image: e.image, name: e.name, temperament: e.temperament, weight: e.weight, createdInDB: e.createdInDB}))
     if(name){
         let breedName = await totalBreeds.filter(e=> e.name.toLowerCase().includes(name.toLowerCase()));
         breedName.length ? res.status(200).send(breedName) : res.status(404).send("No existe una raza de perro con ese nombre");
