@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
+import '../styles/home.css'
 
 
 export default function Home(){
@@ -64,7 +65,7 @@ function handlefilterDogByTemperament(e){
 
 
 return(
-    <div>
+    <div className='home'>
         <Link to= '/dog'> Crea tu Perro</Link>
         <h1> Los mejores amigos del hombre</h1>
         <SearchBar/>
