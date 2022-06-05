@@ -24,7 +24,7 @@ return(
                 <h1>Nombre: {myDog[0].name}</h1>
                 <h3>Temperament: {myDog[0].temperament}</h3>
                 <h3>Altura: {myDog[0].height}</h3>
-                <h3>Peso: {myDog[0].weight}</h3>
+                <h3>Peso: min: {myDog[0].weight[0]} max: {myDog[0].weight[1]}</h3>
                 <h3>Años de vida: {myDog[0].life_span}</h3>
 
 

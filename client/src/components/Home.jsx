@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { filterDogByOrigin, filterDogByWeight, getDogs, orderByName, getDogTemperaments,filterDogByTemperament } from '../actions';
+import { filterDogByOrigin, orderDogByWeight, getDogs, orderByName, getDogTemperaments,filterDogByTemperament } from '../actions';
 import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
 import Paginado from './Paginado';
@@ -54,7 +54,7 @@ function handlefilterDogByName(e){
 
 function handlefilterDogByWeight(e){
     e.preventDefault();
-    dispatch(filterDogByWeight(e.target.value))
+    dispatch(orderDogByWeight(e.target.value))
     setCurrentPage(1);
 }
 

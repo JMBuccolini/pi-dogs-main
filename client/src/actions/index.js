@@ -71,9 +71,9 @@ export function orderByName(payload){
     })
 }
 
-export function filterDogByWeight(payload){
+export function orderDogByWeight(payload){
     return({
-        type: "FILTER_BY_WEIGHT",
+        type: "ORDER_BY_WEIGHT",
         payload
     })
 }

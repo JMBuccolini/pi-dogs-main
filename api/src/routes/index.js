@@ -15,10 +15,24 @@ function filterTemperament(temperament) {
     return string.slice(0, string.length - 2);
   }
 
+function parseWeight(string){
+    let arr = string.split("-")
+    console.log(arr)
+    let peso = []
+    let min = Number(arr[0])
+    let max = Number(arr[1])
+
+    if(min != NaN){peso.push(min)}
+    if(max != NaN){peso.push(max)}
+
+return peso
+
+}
+
 async function getApiBreeds(){
     try {
         let breeds= (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.
-        map(e=>({id: e.id, image:e.image.url, name:e.name, height: e.height.metric, temperament:e.temperament, weight:e.weight.metric, life_span : e.life_span}))
+        map(e=>({id: e.id, image:e.image.url, name:e.name, height: e.height.metric, temperament:e.temperament, weight:parseWeight(e.weight.metric), life_span : e.life_span}))
         return breeds
     } catch (error) {
         res.status(404).send(error)
