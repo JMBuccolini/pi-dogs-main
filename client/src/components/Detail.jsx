@@ -28,7 +28,7 @@ return(
                 <h3>Años de vida: {myDog[0].life_span}</h3>
 
 
-            </div> : <p>No hay perros con ese ID</p>
+            </div> : <p>...Cargando</p>
         }
         <Link to='/home'>
             <button>Volver</button>
