@@ -15,7 +15,7 @@ export default function DogCreate(){
         weight_min:"",
         weight_max:""
     })
-
+    
     const [input, setInput] = useState({
         name: "",
         height: "",

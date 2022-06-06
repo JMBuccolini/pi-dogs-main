@@ -66,13 +66,14 @@ function handlefilterDogByTemperament(e){
 
 
 return(
-    <div className='home'>
+    <div >
         <Link to= '/dog'> Crea tu Perro</Link>
         <h1> Los mejores amigos del hombre</h1>
         <SearchBar/>
         <button onClick={e => {handleClick(e)}}>
             Dogs
         </button>
+    
     <div>
         <p>Filtrar por Nombre</p>
         <select  onChange={(e) => handlefilterDogByName(e)}>
@@ -105,13 +106,14 @@ return(
          return(
             
                 
-                <DogCard name={e.name} id ={e.id} image = {e.image} temperament = {e.temperament}weight={e.weight}  key={e.id}/>  
+                <DogCard name={e.name} id ={e.id} image = {e.image?e.image: 'https://acortar.link/PZdlEx'} temperament = {e.temperament}weight={e.weight}  key={e.id}/>  
 
             
             
          )})
     }
     </div>
+
     </div>
 )
 

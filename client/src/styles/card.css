@@ -1,13 +1,1 @@
-.card{
-    display: flex;
-    flex-wrap: wrap; 
-    margin: 0 auto;
-    justify-content: center;
-    box-sizing: border-box;
-    float: inline-start;
-    color:black;
-    width: 400px;
-    padding: 20px;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.377);
-    border-radius: 20px; 
-}
+    
