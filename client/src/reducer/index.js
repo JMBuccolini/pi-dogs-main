@@ -73,7 +73,7 @@ function rootReducer(state = initialState, action){
                 state.dogs.sort(function(a,b){
                     if(a.weight[1]>b.weight[1]){return -1;}
                     if(b.weight[1]>a.weight[1]){return 1;}
-                    
+                    return 0;
                 })
                     return{
                         ...state,

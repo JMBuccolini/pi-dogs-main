@@ -37,7 +37,7 @@ return peso
 async function getApiBreeds(){
     try {
         let breeds= (await axios('https://api.thedogapi.com/v1/breeds?api_key=58e889c2-6c68-4943-843c-6cd982c402a7')).data.
-        map(e=>({id: e.id, image:e.image.url, name:e.name, height: e.height.metric, temperament:e.temperament, weight:parseWeight(e.weight.metric), life_span : e.life_span}))
+        map(e=>({id: e.id, image:e.image.url, name:e.name, height: e.height.metric, temperament:e.temperament, weight:e.weight.metric !== "NaN"? parseWeight(e.weight.metric) : parseWeight(e.weight.imperial), life_span : e.life_span}))
         return breeds
     } catch (error) {
         res.status(404).send(error)

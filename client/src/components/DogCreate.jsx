@@ -44,7 +44,7 @@ function handleSelect(e){
         ...input,
         height: minmax.height_min +'-'+  minmax.height_max,
         weight: minmax.weight_min + '-' + minmax.weight_max,
-        temperament: [...input.temperament, e.target.value]
+        temperament: input.temperament.includes(e.target.value)? (alert('Temperamento ya agregado'),[...input.temperament]): [...input.temperament, e.target.value]
     })
 }
 
