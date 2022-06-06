@@ -20,7 +20,6 @@ export default function DogCreate(){
         name: "",
         height: "",
         weight: "",
-        weight: "",
         life_span: "",
         temperament: [],
         image:""
@@ -43,7 +42,7 @@ function handleSelect(e){
     e.preventDefault()
     setInput({
         ...input,
-        height: minmax.height_min + '-' + minmax.height_max,
+        height: minmax.height_min +'-'+  minmax.height_max,
         weight: minmax.weight_min + '-' + minmax.weight_max,
         temperament: [...input.temperament, e.target.value]
     })
@@ -61,7 +60,6 @@ function handleSubmit(e){
     setInput({
         name: "",
         height:"",
-        height: "",
         weight: "",
         life_span: "",
         temperament: [],

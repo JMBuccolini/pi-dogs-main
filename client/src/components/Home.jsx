@@ -49,13 +49,14 @@ function handlefilterDogByName(e){
     e.preventDefault();
     dispatch(orderByName(e.target.value))
     setCurrentPage(1)
-    setOrden(`Òrdenado ${e.target.value}`)
+    setOrden(`Ordenado ${e.target.value}`)
 }
 
 function handlefilterDogByWeight(e){
     e.preventDefault();
     dispatch(orderDogByWeight(e.target.value))
     setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`)
 }
 
 function handlefilterDogByTemperament(e){

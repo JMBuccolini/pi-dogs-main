@@ -62,25 +62,19 @@ function rootReducer(state = initialState, action){
                         ...state,
                         dogs: dogsName
                     }
-            case 'FILTER_BY_WEIGHT':
-                const dogsWeight = action.payload === 'pesomax'?
-                    state.dogs.sort(function(a,b){
-                        if(a.weight > b.weight){
-                            return 1;
-                        }
-                        if(b.weight > a.weight){
-                            return -1;
-                        }
-                        return 0;
-                    }):
-                    state.dogs.sort(function (a,b){
-                        if(a.weight > b.weight){
-                            return -1;
-                        }
-                        if(b.weight>a.weight){
-                            return 1;
-                        }
-                    })
+            case 'ORDER_BY_WEIGHT':
+                const dogsWeight = action.payload ==='pesomin'?
+                state.dogs.sort(function(a,b){
+                    if(a.weight[0]>b.weight[0]){
+                        return 1;}
+                    if(b.weight[0] > a.weight[0]){return -1;}
+                    return 0;
+                }):
+                state.dogs.sort(function(a,b){
+                    if(a.weight[1]>b.weight[1]){return -1;}
+                    if(b.weight[1]>a.weight[1]){return 1;}
+                    
+                })
                     return{
                         ...state,
                         dogs:dogsWeight

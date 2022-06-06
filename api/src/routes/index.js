@@ -21,10 +21,15 @@ function parseWeight(string){
     let peso = []
     let min = Number(arr[0])
     let max = Number(arr[1])
-
-    if(min != NaN){peso.push(min)}
-    if(max != NaN){peso.push(max)}
-
+    
+    if(min != NaN && min !=null){
+        peso.push(min)         
+    }
+    if(max != NaN && max !=null){
+        peso.push(max)
+    }
+    console.log(peso)
+    
 return peso
 
 }
@@ -51,7 +56,7 @@ async function getDbBreeds(){
             }]
         })
 
-        let allDogs = dataBaseDogs.map(e=>({id: e.id, image: e.image, name:e.name, height: e.height, temperament:filterTemperament(e.temperaments), weight:e.weight, life_span : e.life_span, createdInDB: e.createdInDB}))
+        let allDogs = dataBaseDogs.map(e=>({id: e.id, image: e.image, name:e.name, height: e.height, temperament:filterTemperament(e.temperaments), weight:parseWeight(e.weight), life_span : e.life_span, createdInDB: e.createdInDB}))
         return allDogs
     } catch (error) {
        res.send(error)
@@ -97,7 +102,7 @@ router.get('/temperament', async(req,res)=>{
         }
         return acc;
     },[])
-    console.log(arrayDef)
+    
       
     arrayDef.forEach(e=> {
         Temperament.findOrCreate({
