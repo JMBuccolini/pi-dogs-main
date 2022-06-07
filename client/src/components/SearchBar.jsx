@@ -10,18 +10,17 @@ export default function SearchBar(){
     function handleInputChange(e){
         e.preventDefault()
         setName(e.target.value)
-        
-        
     }
 
     function handleSubmit(e){
         e.preventDefault()
         dispatch(getDogByName(name))
+        setName("")
     }
 
     return(
         <div>
-            <input type='text' placeholder='Buscar perro por nombre' onChange={(e)=>handleInputChange(e)}  />
+            <input type='text' placeholder='Buscar perro por nombre' value={name} onChange={(e)=>handleInputChange(e)}  />
             <button type='submit' onClick={(e)=> handleSubmit(e)} > Buscar </button>
         </div>
 
