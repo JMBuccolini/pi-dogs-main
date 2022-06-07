@@ -66,37 +66,48 @@ function handlefilterDogByTemperament(e){
 
 
 return(
-    <div >
-        <Link to= '/dog'> Crea tu Perro</Link>
+    <div className='home_div'>
+        <Link to= '/dog' className='form_button'> Crea tu Perro</Link>
         <h1> Los mejores amigos del hombre</h1>
         <SearchBar/>
         <button onClick={e => {handleClick(e)}}>
-            Dogs
+           Reset Page
         </button>
     
-    <div>
-        <p>Filtrar por Nombre</p>
-        <select  onChange={(e) => handlefilterDogByName(e)}>
-            <option value= 'asc'> Ordenar de la A-Z</option>
-            <option value='desc'> Ordenar de la Z-A</option>
-        </select>
-        <p>Filtrar por peso</p>
-        <select onChange={(e) => handlefilterDogByWeight(e)}>
-            <option value= 'pesomax'> Peso Max - Min</option>
-            <option value='pesomin'> Peso Min - Max</option>
-        </select>
-        <p>Filtrar por Temperamento</p>
-        <select onChange={(e) => handlefilterDogByTemperament(e)}>
-                {temperaments.map((temp) =>(  
-                    <option value={temp.name}>{temp.name}</option>
-                ))}
-        </select>
-        <p>Filtrar por Origen</p>
-        <select onChange={(e) => handlefilterDogByOrigin(e)}>
-            <option value='All'>Todos</option>
-            <option value='API'>Razas de la API</option>
-            <option value='DB'>Razas creada por usuario</option>
-        </select>
+        <div className='filtro_nombre'>
+            <p className='p_filtros'>Filtrar por Nombre</p>
+            <select  onChange={(e) => handlefilterDogByName(e)}>
+                <option value= 'asc'> Ordenar de la A-Z</option>
+                <option value='desc'> Ordenar de la Z-A</option>
+            </select>
+
+        </div>
+        <div className='filtro_peso'>
+            <p className='p_filtros'>Filtrar por peso</p>
+            <select onChange={(e) => handlefilterDogByWeight(e)}>
+                <option value= 'pesomax'> Peso Max - Min</option>
+                <option value='pesomin'> Peso Min - Max</option>
+            </select>
+
+        </div>
+        <div className='filtro_temperamento'>
+            <p className='p_filtros'>Filtrar por Temperamento</p>
+            <select onChange={(e) => handlefilterDogByTemperament(e)}>
+                    {temperaments.map((temp) =>(  
+                        <option value={temp.name}>{temp.name}</option>
+                    ))}
+            </select>
+
+        </div>
+        <div className='filtro_origen'>
+
+            <p className='p_filtros'>Filtrar por Origen</p>
+            <select onChange={(e) => handlefilterDogByOrigin(e)}>
+                <option value='All'>Todos</option>
+                <option value='API'>Razas de la API</option>
+                <option value='DB'>Razas creada por usuario</option>
+            </select>
+        </div>
         <Paginado
         dogsPage={dogsPage}
         allDogs={allDogs.length}
@@ -114,7 +125,7 @@ return(
     }
     </div>
 
-    </div>
+    
 )
 
 

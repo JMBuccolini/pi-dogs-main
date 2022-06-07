@@ -9,6 +9,7 @@
 }
 
 .pagenumber{
+    background-color: lightblue;
     color: black;
     float: left;
     padding: 8px 16px;
@@ -20,10 +21,11 @@
 }
 
 .pagenumber:hover{
-    background-color: #ddd;
+    background-color: orangered;
 }
 
 .pagenumber:active{
-    background-color: green;
+    background-color: red;
 }
+
 
