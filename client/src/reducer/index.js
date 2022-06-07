@@ -20,13 +20,15 @@ function rootReducer(state = initialState, action){
                 
             }
             case 'FILTER_BY_ORIGIN':
-            const allDogs = state.allDogs;
-            const originFiltered = action.payload === "DB"? allDogs.filter(d=>d.createdInDB) : allDogs.filter(d=>!d.createdInDB)
+            const allDogs1 = state.allDogs; //tiene el backup de todos los perros
+            const originFiltered = action.payload === "DB"? allDogs1.filter(d=>d.createdInDB) : allDogs1.filter(d=>!d.createdInDB)
+            //si DB entonces of tiene solamente los DB, sino solamente a los que no tienen DB o sea API
             return{
                 ...state,
-                dogs: action.payload === "All"? state.allDogs : originFiltered
+                dogs: action.payload === "All"? state.allDogs : originFiltered //si ALL entonces backup state allDogs
                 }
             case 'FILTER_BY_TEMPERAMENT':
+            //dogs vale originfiltered
             let allDogs2 = state.allDogs;
             allDogs2 = allDogs2.filter(e=>e.temperament!==undefined)
             const tempFiltered = allDogs2.filter(e => e.temperament.includes(action.payload))
@@ -73,7 +75,7 @@ function rootReducer(state = initialState, action){
                 state.dogs.sort(function(a,b){
                     if(a.weight[1]>b.weight[1]){return -1;}
                     if(b.weight[1]>a.weight[1]){return 1;}
-                    return 0;
+                    
                 })
                     return{
                         ...state,
@@ -91,7 +93,8 @@ function rootReducer(state = initialState, action){
                 case 'GET_TEMPERAMENTS':
                     return{
                         ...state,
-                        temperaments: action.payload
+                        temperaments: action.payload,
+                        
                     }
 
 
