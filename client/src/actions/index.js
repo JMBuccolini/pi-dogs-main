@@ -21,7 +21,7 @@ export function getDogByName(payload){
             })
             
         } catch (error) {
-            console.log(error)
+            alert('No existe un perro con ese nombre')
         }
     }
 }
