@@ -20,7 +20,7 @@ function validate(input){
     if(input.height_max <= input.height_min){
         errors.height_min = 'La altura máxima no puede ser menor o igual a la minima';
     }
-
+    
     if(!input.weight_min || !/^[1-9]\d*(\.\d+)?$/.test(input.weight_min)){
         errors.weight_min = 'Solo puede ser un valor numérico';
     }
@@ -30,12 +30,12 @@ function validate(input){
     if(input.weight_max <= input.weight_min){
         errors.weight_min = 'El peso máximo no puede ser menor al mínimo';
     }
+    if(!input.life_span || !/^[1-9]\d*(\.\d+)?$/.test(input.life_span)){
+        errors.life_span = 'Solo puede ser un valor numérico';
+    }
     
     if (input.image && !/[a-z0-9-.]+\.[a-z]{2,4}\/?([^\s<>#%",{}\\|^[\]`]+)?$/.test(input.image) ){
         errors.image = 'Debe ser una URL o dejarlo vacío para utilizar la imagen por default';
-    }
-    if (!input.temperament.length){
-        errors.temperament = 'Se requiere al menos un (1) temperamento';
     }
     return errors
 }
@@ -65,6 +65,16 @@ export default function DogCreate(){
         image:""
     })
 
+    function handleSelect(e){
+        setInput({
+            ...input,
+            temperament: input.temperament.includes(e.target.value)? (alert('Temperamento ya agregado'),[...input.temperament]): [...input.temperament, e.target.value],
+        })
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value
+        }))
+    }
 function handleChange(e){
     e.preventDefault()
     setMinmax({
@@ -84,17 +94,11 @@ function handleChange(e){
     
 }
 
-function handleSelect(e){
-    e.preventDefault()
-    setInput({
-        ...input,
-        temperament: input.temperament.includes(e.target.value)? (alert('Temperamento ya agregado'),[...input.temperament]): [...input.temperament, e.target.value],
- })
-}
 
 function handleSubmit(e){
     e.preventDefault()
-    if( Object.keys(errors).length === 0 )
+    
+    if( Object.keys(errors).length === 0 && input.temperament.length > 0)
     {dispatch(postDog(input));
     setMinmax({
         height_min:"",
@@ -138,6 +142,7 @@ return(
                 <input type='text' value={input.name} name='name' onChange={(e) =>handleChange(e)}/>
                 {errors.name && (<p>{errors.name}</p>)}
             </div>
+            
             <div>
                 <label>Altura minima:</label>
                 <input type= 'text' value={minmax.height_min} name='height_min' onChange={handleChange}/>
@@ -167,9 +172,9 @@ return(
                 <label>Imagen</label>
                 <input type='text' value={input.image} name='image' onChange={(e) =>handleChange(e)}/>
                 {errors.image && (<p>{errors.image}</p>)}
+             
             </div>
-            <label>Temperamentos (podés elegir más de uno): </label>
-            {errors.temperament && (<p>{errors.temperament}</p>)}
+            <label>Temperamentos (debes elegir por lo menos uno): </label>
             <select onChange={(e)=>handleSelect(e)}>
                 {temperaments && temperaments.map((temp) =>(  
                     <option value={temp.name}>{temp.name}</option>
