@@ -20,7 +20,7 @@ return(
         {
             myDog.length > 0? 
             <div>
-                <img src={myDog[0].image}/>
+                <img src={myDog[0].image?myDog[0].image:'https://acortar.link/PZdlEx'}/>
                 <h1>Nombre: {myDog[0].name}</h1>
                 <h3>Temperament: {myDog[0].temperament}</h3>
                 <h3>Altura: {myDog[0].height}</h3>
