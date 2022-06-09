@@ -1,22 +1,27 @@
 import React from 'react';
-
+import SearchBar from './SearchBar';
+import '../styles/navbar.css'
 
 
 function Navbar() {
   return (
   
-    <nav className="navbar">
-     
-        <span className="navbar-brand">
-            <a href="/home">HENRY DOGS</a>
-        </span>
-        <div className="column">
+      <nav className="nav_container">
+      
+          <span className="navbar">
+            <div className='a_div'>
+              <a href="/home" className='a_navbar'>HENRY DOGS</a>
 
-        </div>
-        <div className="column">
-            
-        </div>
-    </nav>
+            </div>
+          </span>
+          
+          <div className='searchbar'>
+              <SearchBar/>   
+
+          </div>  
+      </nav>
+
+ 
 
   );
 };

@@ -74,7 +74,7 @@ router.get("/dogs/:idRaza", async (req,res)=>{
     const id= req.params.idRaza;
     let totalBreeds = await getAllBreeds()
     if(id){
-        let breedID= await totalBreeds.filter(e=> e.id == id);
+        let breedID=  totalBreeds.filter(e=> e.id == id);
         breedID.length ? res.send(breedID) : res.send('El id no pertenece a un perro')
     }
    
@@ -85,7 +85,7 @@ router.get("/dogs", async(req,res)=>{
     let breeds = await getAllBreeds();
     totalBreeds = breeds.map(e=> ({id:e.id,image: e.image, name: e.name, temperament: e.temperament, weight: e.weight, createdInDB: e.createdInDB}))
     if(name){
-        let breedName = await totalBreeds.filter(e=> e.name.toLowerCase().includes(name.toLowerCase()));
+        let breedName = totalBreeds.filter(e=> e.name.toLowerCase().includes(name.toLowerCase()));
         breedName.length ? res.status(200).send(breedName) : res.status(404).send("No existe una raza de perro con ese nombre");
     }else{
         res.status(200).send(totalBreeds);

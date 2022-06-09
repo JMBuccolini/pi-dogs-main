@@ -5,7 +5,7 @@ import { filterDogByOrigin, orderDogByWeight, getDogs, orderByName, getDogTemper
 import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
 import Paginado from './Paginado';
-import SearchBar from './SearchBar';
+
 import '../styles/home.css'
 import Navbar from './Navbar';
 
@@ -65,8 +65,9 @@ return(
     <div className='home_div'>
         <Navbar/>
         <h1 className='home_title'> Los mejores amigos del hombre</h1>
+        
         <Link to= '/dog' className='form_button'> Crea tu Perro</Link>
-        <SearchBar/>
+        
         <div className="contenedor">
         <div className='filtro_nombre'>
             <p className='p_filtros'>Filtrar por Nombre</p>

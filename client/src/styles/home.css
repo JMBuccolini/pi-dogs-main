@@ -5,10 +5,11 @@ background-position: center center;
   background-attachment:fixed;
   background-size: cover;
   overflow:hidden;
+  margin-bottom: -200px;
 }
 .form_button{
-    
-        display: inline-block;
+        display: inline;
+        justify-self: center;
         text-decoration: none;
         border-radius: 30px;
         background-color: #f4511e;
