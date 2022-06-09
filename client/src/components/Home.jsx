@@ -7,6 +7,7 @@ import DogCard from './DogCard';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
 import '../styles/home.css'
+import Navbar from './Navbar';
 
 
 export default function Home(){
@@ -32,11 +33,6 @@ useEffect(()=>{
     dispatch(getDogTemperaments())
 },[]);
 
-
-function handleClick(e){
-    e.preventDefault();
-    dispatch(getDogs());
-}
 
 function handlefilterDogByOrigin(e){
     e.preventDefault();
@@ -67,13 +63,11 @@ function handlefilterDogByTemperament(e){
 
 return(
     <div className='home_div'>
+        <Navbar/>
+        <h1 className='home_title'> Los mejores amigos del hombre</h1>
         <Link to= '/dog' className='form_button'> Crea tu Perro</Link>
-        <h1> Los mejores amigos del hombre</h1>
         <SearchBar/>
-        <button onClick={e => {handleClick(e)}}>
-           Reset Page
-        </button>
-    
+        <div className="contenedor">
         <div className='filtro_nombre'>
             <p className='p_filtros'>Filtrar por Nombre</p>
             <select  onChange={(e) => handlefilterDogByName(e)}>
@@ -107,6 +101,7 @@ return(
                 <option value='API'>Razas de la API</option>
                 <option value='DB'>Razas creada por usuario</option>
             </select>
+        </div>
         </div>
         <Paginado
         dogsPage={dogsPage}

@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link,useNavigate} from 'react-router-dom';
 import { getDogTemperaments, postDog } from '../actions';
+import '../styles/dogcreate.css'
 
 function validate(input){
     let errors = {};
@@ -133,10 +134,10 @@ useEffect(()=>{
 
 return(
 
-    <div>
-        <Link to='/home'><button>Volver a Home</button></Link>
+    <div className='total_div'>
+        <Link to='/home'><button className='create_button'>Volver a Home</button></Link>
         <h1>Crea a tu perrito</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e)} className='form'>
             <div>
                 <label>Nombre:</label>
                 <input type='text' value={input.name} name='name' onChange={(e) =>handleChange(e)}/>
@@ -180,18 +181,17 @@ return(
                     <option value={temp.name}>{temp.name}</option>
                     ))}
             </select>
-            <ul><li>Has seleccionado: {input.temperament.map(el =>el + " ,")}</li></ul>
+            <ul className='ul_temp'><li>Has seleccionado: {input.temperament.map(el =>el + " ,")}</li></ul>
             
             <div>
-                <button type='submit'>Crear Perrito</button>
+                <button type='submit' className='submit_button'>Crear Perrito</button>
             </div>
 
         </form>
         {
             input.temperament.map(e=>
                 <div>
-                <p>{e}</p>
-                <button onClick={()=>handleDelete(e)}>x</button>
+                 <p>Borrar: {e} <button onClick={()=>handleDelete(e)}>x</button></p>
                 </div>
         )}
 

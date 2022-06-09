@@ -51,7 +51,7 @@ export function getDetail(id){
 }
 
 export function postDog(payload){
-    return async function(dispatch){
+    return async function(){
         var dogPost = await axios.post("http://localhost:3001/dog", payload)
         return dogPost
     }

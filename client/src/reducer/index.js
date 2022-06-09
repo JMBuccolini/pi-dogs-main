@@ -28,7 +28,7 @@ function rootReducer(state = initialState, action){
                 dogs: action.payload === "All"? state.allDogs : originFiltered //si ALL entonces backup state allDogs
                 }
             case 'FILTER_BY_TEMPERAMENT':
-            //dogs vale originfiltered
+            //dogs vale originfiltered que tiene los perros de la DB
             let allDogs2 = state.allDogs;
             allDogs2 = allDogs2.filter(e=>e.temperament!==undefined)
             const tempFiltered = allDogs2.filter(e => e.temperament.includes(action.payload))
