@@ -1,5 +1,10 @@
 .home_div{
-    background-color: black;
+background-image: url('../black-back.jpg');
+background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-size: cover;
+  overflow:hidden;
 }
 .form_button{
     
@@ -25,21 +30,33 @@
     display:flexbox;
     margin-right: 10px;
     align-self:flex-start;
-    
+    padding: 80px;
 }
 .filtro_peso{
     display: flexbox;
     margin-right: 10px;
     align-self: flex-start;
-    
+    padding: 80px;
 }
 .filtro_temperamento{
     display: flexbox;
     margin-right: 10px;
     align-self: flex-start;
-    
+    padding: 80px;
 }
 .filtro_origen{
     display: flexbox;
     align-self: flex-end;
+    padding: 80px;
+}
+
+.home_title{
+    color: white;
+    font-size: 50px;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
