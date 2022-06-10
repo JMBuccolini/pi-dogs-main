@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { filterDogByOrigin, orderDogByWeight, getDogs, orderByName, getDogTemperaments,filterDogByTemperament } from '../actions';
+import { filterDogByOrigin, orderDogByWeight, getDogs, orderByName, getDogTemperaments,filterDogByTemperament,filterDogWeight10 } from '../actions';
 import {Link} from 'react-router-dom'
 import DogCard from './DogCard';
 import Paginado from './Paginado';
@@ -60,6 +60,10 @@ function handlefilterDogByTemperament(e){
     dispatch(filterDogByTemperament(e.target.value))
 }
 
+function handlePeso10(e){
+    e.preventDefault()
+    dispatch(filterDogWeight10(e.target.value))
+}
 
 return(
     <div className='home_div'>
@@ -69,6 +73,7 @@ return(
         <Link to= '/dog' className='form_button'> Crea tu Perro</Link>
         
         <div className="contenedor">
+        <button onClick={(e)=>handlePeso10(e)}> Peso menor igual a 10kg</button>
         <div className='filtro_nombre'>
             <p className='p_filtros'>Filtrar por Nombre</p>
             <select  onChange={(e) => handlefilterDogByName(e)}>

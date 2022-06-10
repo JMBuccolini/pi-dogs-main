@@ -81,6 +81,13 @@ function rootReducer(state = initialState, action){
                         ...state,
                         dogs:dogsWeight
                     } 
+                case 'FILTER_WEIGHT10':
+                const weight10 = state.dogs.filter(e=> e.weight[0]<=10)
+                    return{
+                        ...state,
+                        dogs:weight10
+                    }
+                
                 case 'POST_DOG':
                     return{
                         ...state
@@ -96,6 +103,7 @@ function rootReducer(state = initialState, action){
                         temperaments: action.payload,
                         
                     }
+
 
 
             default:
