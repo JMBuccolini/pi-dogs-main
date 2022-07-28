@@ -4,6 +4,14 @@
 
 # Individual Project - Henry Dogs
 
+##DETALLES DEL PROYECTO
+- Realicé este proyecto como parte del bootcamp Soy Henry.
+- En este caso, trabajé de manera individual tanto en el front como en el back.
+- En esta API vas a poder ver las razas de perros y su información correspondiente.
+- Vas a poder filtrar por temperamento y también por aquellas razas creadas por el usuario.
+- Vas a poder ordenar por nombre y peso.
+- Espero que te guste!
+
 <p align="left">
   <img height="200" src="./dog.png" />
 </p>
